@@ -5,6 +5,35 @@
 
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome!"
+        android:textSize="45sp"
+        android:id="@+id/welcomeTV"
+        android:layout_centerHorizontal="true"
+
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add New Product"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:id="@+id/addProduct"
+        android:layout_below="@id/welcomeTV"
+        />
+
+    <Button
+        android:id="@+id/allProducts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View All Products"
+        android:layout_below="@id/addProduct"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        />
 
 
 
