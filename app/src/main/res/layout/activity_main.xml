@@ -18,7 +18,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add New Product"
+        android:text="Add New Person To Contacts"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
         android:id="@+id/addProduct"
@@ -29,17 +29,11 @@
         android:id="@+id/allProducts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View All Products"
+        android:text="View All Contacts"
         android:layout_below="@id/addProduct"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
         />
-
-
-
-
-
-
 
 
 

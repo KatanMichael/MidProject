@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/new_nameET"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Full Name: "
+            android:focusedByDefault="false"
+            />
+
+        <EditText
+            android:id="@+id/new_phoneET"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:layout_below="@id/new_nameET"
+            android:hint="Enter Phone Number"
+            android:layout_marginTop="25dp"
+            />
+
+
+        <EditText
+            android:id="@+id/new_emailET"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:layout_below="@id/new_phoneET"
+            android:layout_marginTop="25dp"
+            android:hint="Enter Email Address"
+            />
+
+        <EditText
+            android:id="@+id/new_adressET"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_emailET"
+            android:layout_marginTop="25dp"
+            android:hint="Enter Home Address"
+            />
+
+        <EditText
+            android:id="@+id/new_webET"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_adressET"
+            android:layout_marginTop="25dp"
+            android:hint="Enter Website Address"
+            />
+
+        <Button
+            android:id="@+id/new_birthBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick Birth Date"
+            android:layout_below="@id/new_webET"
+            android:layout_marginTop="25dp"
+            />
+
+        <TextView
+            android:id="@+id/new_birthTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_webET"
+            android:layout_alignBaseline="@id/new_birthBtn"
+            android:text="Not Picked Yed"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp"
+            />
+
+        <Button
+            android:id="@+id/new_timeCallBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick Time To Call"
+            android:layout_below="@id/new_birthBtn"
+            android:layout_marginTop="25dp"
+            />
+
+        <TextView
+            android:id="@+id/new_timeCallTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_birthTv"
+            android:layout_alignBaseline="@id/new_timeCallBtn"
+            android:text="Not Picked Yed"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp"
+            />
+
+        <Button
+            android:id="@+id/new_daysBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick Best Days"
+            android:layout_below="@id/new_timeCallBtn"
+            android:layout_marginTop="25dp"
+            />
+
+        <TextView
+            android:id="@+id/new_daysTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_timeCallTv"
+            android:layout_alignBaseline="@id/new_daysBtn"
+            android:text="Not Picked Yed"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp"
+            />
+
+        <Button
+            android:id="@+id/new_picBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Take Picture"
+            android:layout_below="@id/new_daysBtn"
+            android:layout_marginTop="25dp"
+            />
+
+        <ImageView
+            android:id="@+id/new_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/new_picBtn"
+            android:src="@android:drawable/ic_menu_help"
+            android:layout_alignParentEnd="true"
+            />
+
+        <Button
+            android:id="@+id/new_saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save New Person"
+            android:layout_below="@id/new_image"
+            android:layout_marginTop="30dp"/>
+
+
+
+    </RelativeLayout>
+
+
+
+</ScrollView>

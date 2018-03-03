@@ -8,8 +8,8 @@ import android.widget.Button;
 
 public class MainActivity extends Activity
 {
-    Button newProduct;
-    Button allProducts;
+    Button newPerson;
+    Button allPersons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -17,21 +17,21 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        newProduct = findViewById(R.id.addProduct);
-        allProducts = findViewById(R.id.allProducts);
+        newPerson = findViewById(R.id.addProduct);
+        allPersons = findViewById(R.id.allProducts);
 
 
-        newProduct.setOnClickListener(new View.OnClickListener()
+        newPerson.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(MainActivity.this,AddNewProduct.class);
+                Intent intent = new Intent(MainActivity.this,AddNewPerson.class);
                 startActivity(intent);
             }
         });
 
-        allProducts.setOnClickListener(new View.OnClickListener()
+        allPersons.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
