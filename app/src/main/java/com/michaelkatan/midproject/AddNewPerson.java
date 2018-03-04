@@ -2,6 +2,7 @@ package com.michaelkatan.midproject;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,7 +13,16 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -42,8 +52,12 @@ public class AddNewPerson extends Activity
 
     ImageView imageView;
 
-    Person person = new Person();
+    Person person;
     Date date;
+    Time time;
+    Bitmap pic;
+
+    ArrayList<Person> personArrayList;
 
 
     @Override
@@ -53,6 +67,7 @@ public class AddNewPerson extends Activity
         setContentView(R.layout.newperson_layout);
 
         getReferences();
+        updateArr();
 
         pictureBtn.setOnClickListener(new View.OnClickListener()
         {
@@ -84,11 +99,103 @@ public class AddNewPerson extends Activity
             }
         });
 
+        timeCallBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                TimePickerDialog dialog = new TimePickerDialog(AddNewPerson.this, new TimePickerDialog.OnTimeSetListener()
+                {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute)
+                    {
+                        time = new Time(hourOfDay,minute,0);
+                        timePickTV.setText(hourOfDay+":"+minute);
+
+                    }
+                },0,0,true);
+
+                dialog.show();
+
+            }
+        });
 
 
 
+        bestDaysBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
 
 
+            }
+        });
+
+
+        savePersonBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                String tempName = fullNameET.getText().toString();
+                String phone = phoneNumberET.getText().toString();
+                String email = emailET.getText().toString();
+                String webSite = websiteET.getText().toString();
+                String address = homeET.getText().toString();
+                String[] days = {"Sunday","Monday"};
+
+                Person person = new Person(tempName,phone,email,
+                        webSite,address,pic,date,time,days);
+
+
+                personArrayList.add(person);
+
+                try
+                {
+                    FileOutputStream outputStream = openFileOutput("persons", MODE_PRIVATE);
+                    ObjectOutputStream stream = new ObjectOutputStream(outputStream);
+
+                    for(int i = 0; i < personArrayList.size(); i++)
+                    {
+                        stream.writeObject(personArrayList.get(i));
+                    }
+
+                    stream.close();
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+    }
+
+    private void updateArr()
+    {
+        try
+        {
+            FileInputStream inputStream = openFileInput("persons");
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            Person p;
+
+            while((p = (Person) objectInputStream.readObject())!= null)
+            {
+                personArrayList.add(p);
+            }
+
+            objectInputStream.close();
+
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -98,11 +205,10 @@ public class AddNewPerson extends Activity
         {
             if(resultCode == RESULT_OK)
             {
-                Bitmap temp;
 
                 Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                imageView.setImageBitmap(imageBitmap);
+                pic = (Bitmap) extras.get("data");
+                imageView.setImageBitmap(pic);
             }
         }
 
@@ -130,5 +236,14 @@ public class AddNewPerson extends Activity
         imageView = findViewById(R.id.new_image);
 
         date = new Date();
+
+        personArrayList = new ArrayList<>();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+
 }

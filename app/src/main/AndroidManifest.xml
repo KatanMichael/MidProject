@@ -19,6 +19,13 @@
         <activity android:name=".AddNewPerson">
 
         </activity>
+        <activity android:name=".ListOfPersons">
+
+        </activity>
+        <activity android:name=".ShowPerson">
+
+        </activity>
+
     </application>
 
 </manifest>
