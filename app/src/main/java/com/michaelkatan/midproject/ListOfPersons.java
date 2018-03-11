@@ -3,6 +3,8 @@ package com.michaelkatan.midproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +28,8 @@ public class ListOfPersons extends Activity {
     ArrayList<Person> list;
     MyAdapter myAdapter;
 
+    RecyclerView recyclerView;
+    LinearLayoutManager mLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +38,19 @@ public class ListOfPersons extends Activity {
         listView = findViewById(R.id.listView);
         list = new ArrayList<>();
 
+        recyclerView = findViewById(R.id.my_recycler_view);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
+
+
         //arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         // listView.setAdapter(arrayAdapter);
 
         myAdapter = new MyAdapter(this, R.layout.mylistitem, list);
+
         listView.setAdapter(myAdapter);
+        recyclerView.setAdapter(arrayAdapter);
 
         updateArr();
 
