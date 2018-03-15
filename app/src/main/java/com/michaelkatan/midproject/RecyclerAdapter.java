@@ -19,12 +19,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     List<Person> personList;
     Context context;
 
+    myClicker myClickListener;
+
     public RecyclerAdapter(List<Person> list)
     {
         //this.context = context;
         this.personList = list;
     }
 
+    public void setMyClickListener(myClicker listener)
+    {
+        this.myClickListener = listener;
+    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
@@ -64,7 +70,34 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             nameTv = itemView.findViewById(R.id.list_nameTV);
             imageView = itemView.findViewById(R.id.list_imageView);
 
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+
+                @Override
+                public void onClick(View v)
+                {
+                    myClickListener.onPersonClick(v,getAdapterPosition());
+
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v)
+                {
+                    myClickListener.onPersonLongClick(v,getAdapterPosition());
+                    return true;
+                }
+            });
+
         }
+    }
+
+    public interface myClicker
+    {
+        void onPersonClick(View view, int position);
+        void onPersonLongClick(View view, int position);
+
     }
 
 }

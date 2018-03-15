@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -38,19 +39,31 @@ public class ListOfPersons extends Activity {
 
 
         list = new ArrayList<>();
-
         recyclerView = findViewById(R.id.my_recycler_view);
 
         mLayoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(mLayoutManager);
-
-        RecyclerAdapter adapter = new RecyclerAdapter(list);
-
+        final RecyclerAdapter adapter = new RecyclerAdapter(list);
 
         myAdapter = new MyAdapter(this, R.layout.mylistitem, list);
         recyclerView.setAdapter(adapter);
 
         updateArr();
+
+        adapter.setMyClickListener(new RecyclerAdapter.myClicker() {
+            @Override
+            public void onPersonClick(View view, int position)
+            {
+                Toast.makeText(ListOfPersons.this, ""+list.get(position), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPersonLongClick(View view, int position)
+            {
+                list.remove(position);
+                adapter.notifyItemRemoved(position);
+            }
+        });
 
     }
 
