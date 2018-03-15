@@ -35,21 +35,21 @@ public class MyAdapter extends ArrayAdapter<Person>
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(resource,null);
 
-        TextView nameTV = view.findViewById(R.id.list_nameTV);
-        TextView emailTV = view.findViewById(R.id.list_emailTV);
-        TextView phoneTV = view.findViewById(R.id.list_phoneTV);
-        TextView webTV = view.findViewById(R.id.list_webTV);
-        TextView adressTV = view.findViewById(R.id.list_adressTV);
+//        TextView nameTV = view.findViewById(R.id.list_nameTV);
+//        TextView emailTV = view.findViewById(R.id.list_emailTV);
+//        TextView phoneTV = view.findViewById(R.id.list_phoneTV);
+//        TextView webTV = view.findViewById(R.id.list_webTV);
+//        TextView adressTV = view.findViewById(R.id.list_adressTV);
 
         ImageView imageView = view.findViewById(R.id.list_imageView);
 
         Person p = personList.get(position);
 
-        nameTV.setText(p._name);
-        emailTV.setText(p._email);
-        phoneTV.setText(p._phone);
-        webTV.setText(p._email);
-        adressTV.setText(p._adress);
+//        nameTV.setText(p._name);
+//        emailTV.setText(p._email);
+//        phoneTV.setText(p._phone);
+//        webTV.setText(p._email);
+//        adressTV.setText(p._adress);
 
         imageView.setImageBitmap(p.pic);
 

@@ -3,8 +3,10 @@ package com.michaelkatan.midproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,49 +25,32 @@ import java.util.ArrayList;
  */
 
 public class ListOfPersons extends Activity {
-    ListView listView;
-    ArrayAdapter<Person> arrayAdapter;
     ArrayList<Person> list;
     MyAdapter myAdapter;
 
     RecyclerView recyclerView;
-    LinearLayoutManager mLayoutManager;
+    GridLayoutManager mLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personslist);
 
-        listView = findViewById(R.id.listView);
+
         list = new ArrayList<>();
 
         recyclerView = findViewById(R.id.my_recycler_view);
 
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(mLayoutManager);
 
+        RecyclerAdapter adapter = new RecyclerAdapter(list);
 
-        //arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
-        // listView.setAdapter(arrayAdapter);
 
         myAdapter = new MyAdapter(this, R.layout.mylistitem, list);
-
-        listView.setAdapter(myAdapter);
-        recyclerView.setAdapter(arrayAdapter);
+        recyclerView.setAdapter(adapter);
 
         updateArr();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                Intent intent = new Intent(ListOfPersons.this, ShowPerson.class);
-                Person p = list.get(position);
-                intent.putExtra("person",p);
-                startActivity(intent);
-            }
-        });
 
     }
 

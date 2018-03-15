@@ -2,6 +2,7 @@ package com.michaelkatan.midproject;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v7.widget.RecyclerView;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -39,6 +40,9 @@ public class Person implements Serializable
         this.time = time;
         this.days = days;
 
+    }
+
+    public Person() {
     }
 
     private void writeObject(java.io.ObjectOutputStream stream) throws IOException
