@@ -2,12 +2,9 @@ package com.michaelkatan.midproject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.ActionMode;
 import android.view.ContextMenu;
@@ -15,9 +12,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
@@ -32,8 +26,8 @@ import java.util.ArrayList;
  * Created by MichaelKatan on 04/03/2018.
  */
 
-public class ListOfPersons extends Activity {
-    ArrayList<Person> list;
+public class ListOfPersons extends Activity
+{
     MyAdapter myAdapter;
 
     RecyclerView recyclerView;
@@ -43,29 +37,30 @@ public class ListOfPersons extends Activity {
 
     int PersonPos;
 
+    SingleTonList listOfPeople;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personslist);
 
+        listOfPeople = SingleTonList.getInstance(this);
 
-        list = new ArrayList<>();
         recyclerView = findViewById(R.id.my_recycler_view);
 
         mLayoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(mLayoutManager);
-        final RecyclerAdapter adapter = new RecyclerAdapter(list);
+        final RecyclerAdapter adapter = new RecyclerAdapter(listOfPeople.getPersonArrayList());
 
-        myAdapter = new MyAdapter(this, R.layout.mylistitem, list);
+        myAdapter = new MyAdapter(this, R.layout.mylistitem, listOfPeople.getPersonArrayList());
         recyclerView.setAdapter(adapter);
 
-        updateArr();
 
         adapter.setMyClickListener(new RecyclerAdapter.myClicker() {
             @Override
             public void onPersonClick(View view, int position)
             {
-                Person person = list.get(position);
+                Person person = listOfPeople.getPerson(position);
                 Intent intent = new Intent(ListOfPersons.this,ShowPerson.class);
                 intent.putExtra("person",person);
 
@@ -94,7 +89,7 @@ public class ListOfPersons extends Activity {
                 if(direction == ItemTouchHelper.LEFT)
                 {
                     int pos = viewHolder.getAdapterPosition();
-                    list.remove(pos);
+                    listOfPeople.removeFromList(pos);
                     adapter.notifyItemRemoved(pos);
                 }
             }
@@ -133,9 +128,10 @@ public class ListOfPersons extends Activity {
                     }
                     case R.id.cardMenu_remove:
                     {
-                        list.remove(PersonPos);
+                        listOfPeople.removeFromList(PersonPos);
                         adapter.notifyItemRemoved(PersonPos);
                         mode.finish();
+                        return  true;
                     }
 
                 }
@@ -153,47 +149,10 @@ public class ListOfPersons extends Activity {
 
     }
 
-    private void updateArr() {
-        try {
-            FileInputStream inputStream = openFileInput("persons");
-            ObjectInputStream stream = new ObjectInputStream(inputStream);
-
-            Person person;
-            while ((person = (Person) stream.readObject()) != null) {
-                list.add(person);
-            }
-
-            stream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
     @Override
-    protected void onPause() {
-        try {
-            FileOutputStream outputStream = openFileOutput("persons", MODE_PRIVATE);
-            ObjectOutputStream stream = new ObjectOutputStream(outputStream);
-
-            for (int i = 0; i < list.size(); i++) {
-                stream.writeObject(list.get(i));
-            }
-
-            stream.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+    protected void onPause()
+    {
+        listOfPeople.updateFile();
         super.onPause();
     }
 

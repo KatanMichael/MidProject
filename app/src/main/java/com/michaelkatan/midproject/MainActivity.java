@@ -10,6 +10,7 @@ public class MainActivity extends Activity
 {
     Button newPerson;
     Button allPersons;
+    SingleTonList listOfpersons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,6 +43,6 @@ public class MainActivity extends Activity
             }
         });
 
-
+        listOfpersons = SingleTonList.getInstance(this);
     }
 }

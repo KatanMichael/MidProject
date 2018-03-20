@@ -57,7 +57,7 @@ public class AddNewPerson extends Activity
     Time time;
     Bitmap pic;
 
-    ArrayList<Person> personArrayList;
+    SingleTonList list;
 
 
     @Override
@@ -67,7 +67,7 @@ public class AddNewPerson extends Activity
         setContentView(R.layout.newperson_layout);
 
         getReferences();
-        updateArr();
+
 
         pictureBtn.setOnClickListener(new View.OnClickListener()
         {
@@ -147,56 +147,14 @@ public class AddNewPerson extends Activity
                 Person person = new Person(tempName,phone,email,
                         webSite,address,pic,date,time,days);
 
-
-                personArrayList.add(person);
-
-                try
-                {
-                    FileOutputStream outputStream = openFileOutput("persons", MODE_PRIVATE);
-                    ObjectOutputStream stream = new ObjectOutputStream(outputStream);
-
-                    for(int i = 0; i < personArrayList.size(); i++)
-                    {
-                        stream.writeObject(personArrayList.get(i));
-                    }
-
-                    stream.close();
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                list.instartToList(person);
 
             }
         });
 
     }
 
-    private void updateArr()
-    {
-        try
-        {
-            FileInputStream inputStream = openFileInput("persons");
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            Person p;
 
-            while((p = (Person) objectInputStream.readObject())!= null)
-            {
-                personArrayList.add(p);
-            }
-
-            objectInputStream.close();
-
-        } catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -237,11 +195,13 @@ public class AddNewPerson extends Activity
 
         date = new Date();
 
-        personArrayList = new ArrayList<>();
+        list = SingleTonList.getInstance();
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
+        list.updateFile();
         super.onPause();
     }
 
