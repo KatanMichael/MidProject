@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.ActionMode;
@@ -31,7 +32,7 @@ public class ListOfPersons extends Activity
     MyAdapter myAdapter;
 
     RecyclerView recyclerView;
-    GridLayoutManager mLayoutManager;
+    LinearLayoutManager mLayoutManager;
 
     ActionMode.Callback mActionModeCallback;
 
@@ -48,7 +49,7 @@ public class ListOfPersons extends Activity
 
         recyclerView = findViewById(R.id.my_recycler_view);
 
-        mLayoutManager = new GridLayoutManager(this,2);
+        mLayoutManager = new LinearLayoutManager (this);
         recyclerView.setLayoutManager(mLayoutManager);
         final RecyclerAdapter adapter = new RecyclerAdapter(listOfPeople.getPersonArrayList());
 
